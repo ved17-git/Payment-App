@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = __importDefault(require("express"));
+const userController_1 = require("../controllers/userController");
+const userController_2 = require("../controllers/userController");
+const userController_3 = require("../controllers/userController");
+const userController_4 = require("../controllers/userController");
+const userController_5 = require("../controllers/userController");
+const middleware_1 = require("../middleware");
+const userController_6 = require("../controllers/userController");
+exports.router = express_1.default.Router();
+exports.router.post('/signUp', userController_1.signUp);
+exports.router.post('/login', userController_2.login);
+exports.router.post('/logout', middleware_1.middleware, userController_3.logout);
+exports.router.get('/CurrentUser', middleware_1.middleware, userController_4.getUserById);
+exports.router.put('/updateUser', middleware_1.middleware, userController_5.updateUser);
+exports.router.get('/getUsers', middleware_1.middleware, userController_6.getAllUsers);
