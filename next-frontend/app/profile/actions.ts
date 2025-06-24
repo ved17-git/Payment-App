@@ -26,13 +26,14 @@ export const updateUser=async (previousState:unknown, formData:FormData)=>{
         body:JSON.stringify({firstName, lastName, email})
       })
        
+    
+      const data=await res.json()
+      console.log(data);
       
-      
-        
     if (!res.ok) {
         return {
           status:"error",
-          message:"Something went wrong"
+          message:"Updation Error"
         }
     }
       

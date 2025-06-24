@@ -9,22 +9,79 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateAccount = void 0;
+exports.getCurrentUserBalance = exports.transferFunds = void 0;
 const balanceSchema_1 = require("../models/balanceSchema");
 const userSchema_1 = require("../models/userSchema");
-const CreateAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const transferFunds = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //const session =await mongoose.startSession()
+    //session.startTransaction()
+    //Better way when doing a payment transfer=>multiple operations either all succeed or all fail — this is called atomicity.
     var _a;
+    const { amount, email } = req.body;
     const id = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
-    const user = yield userSchema_1.User.findById({ _id: id });
-    if (!user) {
+    const sender = yield balanceSchema_1.Account.findOne({
+        userId: id
+    });
+    if (!sender) {
         res.status(400).json({
-            messsge: "User Not found"
+            message: "Sender not found"
         });
         return;
     }
-    const account = yield balanceSchema_1.Account.create({
-        userId: user._id,
-        balance: 1000
+    if (sender.balance < amount) {
+        res.status(400).json({
+            message: "Insuffucient balance"
+        });
+        return;
+    }
+    const reciever = yield userSchema_1.User.findOne({
+        email: email
+    });
+    if (!reciever) {
+        res.status(400).json({
+            message: "Reciever not found"
+        });
+        return;
+    }
+    const toAccount = yield balanceSchema_1.Account.findOne({
+        userId: reciever._id
+    });
+    if (!toAccount) {
+        res.status(400).json({
+            message: "Reciever Account not found"
+        });
+        return;
+    }
+    yield balanceSchema_1.Account.updateOne({
+        _id: sender._id
+    }, { $inc: { balance: -amount } });
+    yield balanceSchema_1.Account.updateOne({
+        _id: toAccount._id
+    }, { $inc: { balance: amount } });
+    res.status(200).json({
+        message: "Transaction successful",
+        senderId: sender.userId,
+        receiverId: toAccount.userId,
+        amount: amount
     });
 });
-exports.CreateAccount = CreateAccount;
+exports.transferFunds = transferFunds;
+const getCurrentUserBalance = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const id = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+    const balance = yield balanceSchema_1.Account.findOne({ userId: id });
+    if (!balance) {
+        res.status(400).json({
+            message: "Balance not found"
+        });
+        return;
+    }
+    else {
+        res.status(200).json({
+            message: "Balance Found",
+            balance,
+        });
+        return;
+    }
+});
+exports.getCurrentUserBalance = getCurrentUserBalance;

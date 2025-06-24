@@ -8,7 +8,10 @@ type userType={
   _id:string,
   firstName:string,
   lastName:string,
-  email:string
+  email:string,
+  balance:{
+    balance:number
+  }
 }
 
 
@@ -24,9 +27,10 @@ async function Page() {
   });
 
   const data = await res.json();
+  const user:userType=data
 
+  console.log(user);
   
-  const user:userType=data.user
   
 
   return (

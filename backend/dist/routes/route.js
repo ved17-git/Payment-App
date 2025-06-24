@@ -12,6 +12,8 @@ const userController_4 = require("../controllers/userController");
 const userController_5 = require("../controllers/userController");
 const middleware_1 = require("../middleware");
 const userController_6 = require("../controllers/userController");
+const accountController_1 = require("../controllers/accountController");
+const accountController_2 = require("../controllers/accountController");
 exports.router = express_1.default.Router();
 exports.router.post('/signUp', userController_1.signUp);
 exports.router.post('/login', userController_2.login);
@@ -19,3 +21,5 @@ exports.router.post('/logout', middleware_1.middleware, userController_3.logout)
 exports.router.get('/CurrentUser', middleware_1.middleware, userController_4.getUserById);
 exports.router.put('/updateUser', middleware_1.middleware, userController_5.updateUser);
 exports.router.get('/getUsers', middleware_1.middleware, userController_6.getAllUsers);
+exports.router.post('/transfer', middleware_1.middleware, accountController_1.transferFunds);
+exports.router.get('/currentBalance', middleware_1.middleware, accountController_2.getCurrentUserBalance);

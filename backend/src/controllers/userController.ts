@@ -32,7 +32,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
 
       const account=await Account.create({
           userId:newUser._id,
-          balance:1000
+          balance:Math.floor(Math.random() * 10000),
         })
 
     const token = jwt.sign({ id: newUser._id }, "secret" as string, {
@@ -48,7 +48,11 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
     res.status(201).json({
       message: "New user created",
       token,
-      user:newUser,
+      user:{
+        firstName:newUser.firstName,
+        lastName:newUser.lastName,
+        email:newUser.email
+      },
       account
     });
 
@@ -81,8 +85,9 @@ if(existingUser?.password==password){
      res.json({
         message:"Logged In",
         token:token,
-        existingUser,
-        
+        firstName:existingUser?.firstName,
+        lastName:existingUser?.lastName,
+        email:existingUser?.email,
     })
     
     return
@@ -126,7 +131,9 @@ export const getUserById=async(req:UpdatedRequest,res:Response):Promise<void>=>{
 
     if(user){
        res.status(200).json({
-            user,
+             firstName:user.firstName,
+            lastName:user.lastName,
+            email:user.email,
             balance
         })
         return
@@ -150,8 +157,7 @@ export const updateUser=async(req:UpdatedRequest,res:Response):Promise<void>=>{
      
     const id = req.user.id;
 
-    const {firstName, lastName, email}=req.body
-    
+    const {firstName, lastName, email}=req.body  
 
     const user=await User.findByIdAndUpdate(id,{
         firstName,
@@ -161,7 +167,9 @@ export const updateUser=async(req:UpdatedRequest,res:Response):Promise<void>=>{
 
     if(user){
        res.status(200).json({
-            user
+            firstName:user.firstName,
+            lastName:user.lastName,
+            email:user.email
         })
         return
     }else{
@@ -182,7 +190,6 @@ export const getAllUsers = async (req: UpdatedRequest, res: Response):Promise<vo
   const id = req.user.id;
 
   try {
-    // 1. First, find the current user (optional — if needed)
     const currentUser = await User.findById(id);
     if (!currentUser) {
        res.status(404).json({ message: "User not found" });

@@ -36,7 +36,7 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         const account = yield balanceSchema_1.Account.create({
             userId: newUser._id,
-            balance: 1000
+            balance: Math.floor(Math.random() * 10000),
         });
         const token = jsonwebtoken_1.default.sign({ id: newUser._id }, "secret", {
             expiresIn: "2h"
@@ -49,7 +49,11 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(201).json({
             message: "New user created",
             token,
-            user: newUser,
+            user: {
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email
+            },
             account
         });
     }
@@ -76,7 +80,9 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json({
             message: "Logged In",
             token: token,
-            existingUser,
+            firstName: existingUser === null || existingUser === void 0 ? void 0 : existingUser.firstName,
+            lastName: existingUser === null || existingUser === void 0 ? void 0 : existingUser.lastName,
+            email: existingUser === null || existingUser === void 0 ? void 0 : existingUser.email,
         });
         return;
     }
@@ -110,7 +116,9 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     if (user) {
         res.status(200).json({
-            user,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
             balance
         });
         return;
@@ -138,7 +146,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }, { new: true });
     if (user) {
         res.status(200).json({
-            user
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
         });
         return;
     }
@@ -158,7 +168,6 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     const id = req.user.id;
     try {
-        // 1. First, find the current user (optional — if needed)
         const currentUser = yield userSchema_1.User.findById(id);
         if (!currentUser) {
             res.status(404).json({ message: "User not found" });

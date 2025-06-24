@@ -27,6 +27,7 @@ export default function Page() {
      toast.error(error?.message)
   },[error])
 
+  
 
   return (
     <>
@@ -39,7 +40,7 @@ export default function Page() {
           Enter your email below to login to your account
         </CardDescription>
         <CardAction>
-            <Link href='/signUp'> <Button variant="link">Register</Button></Link>
+            <Link href='/signUp'> <Button variant="link" type="button">Register</Button></Link>
           
         </CardAction>
       </CardHeader>
@@ -77,11 +78,7 @@ export default function Page() {
                     {isLoading? <Spinner className="dark:text-black text-white"/> : 'Register' }
           
         </Button>
-        <Button variant="outline" className="w-full">
-          Login with Google
-        </Button>
       </CardFooter>
-      {error ? (error?.message): (null)}
     </Card>
     </form>
 

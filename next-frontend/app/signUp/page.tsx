@@ -34,7 +34,7 @@ function Page() {
           Enter your email below to login to your account
         </CardDescription>
         <CardAction>
-            <Link href='/signIn'><Button variant="link">Sign IN</Button> </Link>
+            <Link href='/signIn'><Button variant="link" type="button">Sign IN</Button> </Link>
         </CardAction>
       </CardHeader>
       <CardContent>
@@ -97,9 +97,7 @@ function Page() {
         <Button type="submit" className="w-full">
           {isLoading? <Spinner className="dark:text-black text-white"/> : 'Register' }
         </Button>
-        <Button variant="outline" className="w-full">
-          Login with Google
-        </Button>
+
       </CardFooter>
       {error ? (<div className="text-center text-red-500">{error}</div>) : null}
     </Card>
