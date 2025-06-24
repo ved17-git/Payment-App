@@ -9,17 +9,16 @@ import { cookies } from "next/headers";
 } from "@/components/ui/avatar"
 import { ModeToggle } from "./ModeToggle";
 
+
 async function Navbar() {
-
-
 const cookieStore = await cookies()
 const token =cookieStore.get('token')?.value
   
   return (
     <>
-          <div className="flex justify-between items-center px-[16vh] py-[4vh] border-b-2">
+          <div className="flex justify-between items-center px-[4vh] py-[4vh] border-b-2 sm:px-[16vh]">
          <Link href='/dashboard' className="text-3xl font-bold">Paytm</Link>
-         <div className="flex gap-5"> 
+         <div className="flex sm:gap-5 gap-2 "> 
 {token ? (
   <Link href="/profile">
     <Avatar>
@@ -41,6 +40,7 @@ const token =cookieStore.get('token')?.value
          
          </div>
       </div>
+
     </>
   );
 }

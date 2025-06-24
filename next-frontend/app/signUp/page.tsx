@@ -27,7 +27,7 @@ function Page() {
         
             
 <form action={action}  className="">
-   <Card className="w-full max-w-sm mx-auto" >
+   <Card className="w-full max-w-sm mx-auto mt-[5%]" >
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>

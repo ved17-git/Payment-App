@@ -35,7 +35,7 @@ async function Page() {
 
   return (
     <>
-      <Suspense fallback={<p>Loading....</p> }>
+      <Suspense fallback={<p className="text-center">Loading....</p> }>
                <UpdateForm data={user}/>
       </Suspense>
     </>

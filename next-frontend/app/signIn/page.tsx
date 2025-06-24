@@ -33,7 +33,7 @@ export default function Page() {
     <>
         
  <form action ={action}>
-   <Card className="w-full max-w-sm mx-auto " >
+   <Card className="w-full max-w-sm mx-auto mt-[5%]" >
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
         <CardDescription>
@@ -75,7 +75,7 @@ export default function Page() {
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button type="submit" className="w-full">
-                    {isLoading? <Spinner className="dark:text-black text-white"/> : 'Register' }
+                    {isLoading? <Spinner className="dark:text-black text-white"/> : 'Login' }
           
         </Button>
       </CardFooter>
