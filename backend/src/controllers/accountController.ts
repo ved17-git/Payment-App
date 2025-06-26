@@ -107,3 +107,7 @@ const balance = await Account.findOne({ userId: id })
       return
     }
 }
+
+export const getTransactionDetails=async(req:UpdatedRequest,res:Response)=>{
+
+}

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCurrentUserBalance = exports.transferFunds = void 0;
+exports.getTransactionDetails = exports.getCurrentUserBalance = exports.transferFunds = void 0;
 const balanceSchema_1 = require("../models/balanceSchema");
 const userSchema_1 = require("../models/userSchema");
 const mongoose_1 = __importDefault(require("mongoose"));
@@ -104,3 +104,6 @@ const getCurrentUserBalance = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getCurrentUserBalance = getCurrentUserBalance;
+const getTransactionDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+});
+exports.getTransactionDetails = getTransactionDetails;

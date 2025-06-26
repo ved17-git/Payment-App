@@ -16,6 +16,7 @@ exports.getAllUsers = exports.updateUser = exports.getUserById = exports.logout 
 const userSchema_1 = require("../models/userSchema");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const balanceSchema_1 = require("../models/balanceSchema");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, lastName, email, password } = req.body;
     if (!firstName || !lastName || !email || !password) {
@@ -28,17 +29,19 @@ const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.status(400).json({ message: "Email already registered" });
             return;
         }
+        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        console.log(hashedPassword);
         const newUser = yield userSchema_1.User.create({
             firstName,
             lastName,
             email,
-            password
+            password: hashedPassword
         });
         const account = yield balanceSchema_1.Account.create({
             userId: newUser._id,
             balance: Math.floor(Math.random() * 10000),
         });
-        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, "secret", {
+        const token = jsonwebtoken_1.default.sign({ id: newUser._id }, process.env.JWT_SECRET, {
             expiresIn: "2h"
         });
         res.cookie('token', token, {
@@ -74,17 +77,20 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const existingUser = yield userSchema_1.User.findOne({
         email: email
     });
-    if ((existingUser === null || existingUser === void 0 ? void 0 : existingUser.password) == password) {
-        const token = jsonwebtoken_1.default.sign({ id: existingUser === null || existingUser === void 0 ? void 0 : existingUser._id }, "secret", { expiresIn: '2h' });
-        res.cookie('token', token);
-        res.json({
-            message: "Logged In",
-            token: token,
-            firstName: existingUser === null || existingUser === void 0 ? void 0 : existingUser.firstName,
-            lastName: existingUser === null || existingUser === void 0 ? void 0 : existingUser.lastName,
-            email: existingUser === null || existingUser === void 0 ? void 0 : existingUser.email,
-        });
-        return;
+    if (existingUser) {
+        const check = yield bcrypt_1.default.compare(password, existingUser === null || existingUser === void 0 ? void 0 : existingUser.password);
+        if (check) {
+            const token = jsonwebtoken_1.default.sign({ id: existingUser === null || existingUser === void 0 ? void 0 : existingUser._id }, process.env.JWT_SECRET, { expiresIn: '2h' });
+            res.cookie('token', token);
+            res.json({
+                message: "Logged In",
+                token: token,
+                firstName: existingUser === null || existingUser === void 0 ? void 0 : existingUser.firstName,
+                lastName: existingUser === null || existingUser === void 0 ? void 0 : existingUser.lastName,
+                email: existingUser === null || existingUser === void 0 ? void 0 : existingUser.email,
+            });
+            return;
+        }
     }
     else {
         res.json({
@@ -173,7 +179,6 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             res.status(404).json({ message: "User not found" });
             return;
         }
-        // 2. Find all users except the current user
         const allUsers = yield userSchema_1.User.find({ _id: { $ne: id } });
         res.status(200).json({ users: allUsers });
         return;

@@ -3,6 +3,7 @@ import { Request,Response } from "express";
 import jwt from 'jsonwebtoken'
 import { UpdatedRequest } from "../middleware";
 import { Account } from "../models/balanceSchema";
+import bcrypt from 'bcrypt'
 
 
 
@@ -23,11 +24,15 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    const hashedPassword=await bcrypt.hash(password,10)
+    console.log(hashedPassword);
+    
+
     const newUser = await User.create({
       firstName,
       lastName,
       email,
-      password
+      password:hashedPassword
     });
 
       const account=await Account.create({
@@ -35,7 +40,7 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
           balance:Math.floor(Math.random() * 10000),
         })
 
-    const token = jwt.sign({ id: newUser._id }, "secret" as string, {
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET as string, {
       expiresIn: "2h"
     });
 
@@ -75,12 +80,16 @@ if(!email || !password){
     return
 }
 
+
 const existingUser=await User.findOne({
     email:email
 })
 
-if(existingUser?.password==password){
-    const token=jwt.sign({id:existingUser?._id},"secret", {expiresIn:'2h'})
+if(existingUser){
+const check=await bcrypt.compare(password, existingUser?.password)
+
+if(check){
+    const token=jwt.sign({id:existingUser?._id}, process.env.JWT_SECRET as string, {expiresIn:'2h'})
     res.cookie('token', token)
      res.json({
         message:"Logged In",
@@ -91,6 +100,7 @@ if(existingUser?.password==password){
     })
     
     return
+}
 }
 else{
     res.json({
@@ -196,7 +206,6 @@ export const getAllUsers = async (req: UpdatedRequest, res: Response):Promise<vo
        return
     }
 
-    // 2. Find all users except the current user
     const allUsers = await User.find({ _id: { $ne: id } });
 
     res.status(200).json({ users: allUsers });
