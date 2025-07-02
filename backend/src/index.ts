@@ -16,7 +16,7 @@ app.use('/', router)
 const PORT=process.env.PORT
 
 const dbConnect=async()=>{
-const connected=await mongoose.connect(process.env.MONG0DB_URL as string)
+const connected=await mongoose.connect(process.env.MONGODB_URL as string)
 try {
     if(connected){
     console.log("connected to db")

@@ -24,7 +24,7 @@ app.use(express_1.default.json());
 app.use('/', route_1.router);
 const PORT = process.env.PORT;
 const dbConnect = () => __awaiter(void 0, void 0, void 0, function* () {
-    const connected = yield mongoose_1.default.connect(process.env.MONG0DB_URL);
+    const connected = yield mongoose_1.default.connect(process.env.MONGODB_URL);
     try {
         if (connected) {
             console.log("connected to db");

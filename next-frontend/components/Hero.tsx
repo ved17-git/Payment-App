@@ -7,22 +7,19 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {  ArrowRight, Send, Wallet } from "lucide-react"
 import Link from "next/link"
 
-// Mock token for demo - replace with your auth logic
 
 
 export default function Hero() {
   return (
     <div className="min-h-screen flex flex-col">
 
-      {/* Main Content */}
       <div className="flex-1 px-4 py-8 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto h-full">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
-            {/* Left Column - Content */}
             <div className="space-y-6 lg:space-y-8">
               <div className="space-y-4">
                 <Badge variant="secondary" className="w-fit">
-                  🚀 Now Available Worldwide
+                   Now Available Worldwide
                 </Badge>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
                   Send Money
@@ -49,10 +46,8 @@ export default function Hero() {
                 </Link>
               </div>
 
-              {/* Quick Features */}
             </div>
 
-            {/* Right Column - Visual */}
             <div className="relative flex justify-center lg:justify-end">
               <div className="relative z-10 w-full max-w-sm">
                 <Card className="bg-gradient-to-br from-primary/10 to-purple-500/10 border-primary/20">

@@ -39,7 +39,7 @@ export const handleSignIn = async (previousState:unknown, formData: FormData) =>
     cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 2 // 2 hr
+      maxAge: 60 * 60 * 2 //2 hr
     })
     redirect("/dashboard")
 

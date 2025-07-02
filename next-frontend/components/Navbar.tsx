@@ -17,13 +17,13 @@ const token =cookieStore.get('token')?.value
   return (
     <>
           <div className="flex justify-between items-center px-[4vh] py-[4vh] border-b-2 sm:px-[16vh]">
-         <Link href='/dashboard' className="text-3xl font-bold">Paytm</Link>
+         <Link href='/dashboard' className="text-3xl font-bold">Payment</Link>
          <div className="flex sm:gap-5 gap-2 "> 
 {token ? (
   <Link href="/profile">
     <Avatar>
       <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-      <AvatarFallback>CN</AvatarFallback>
+      <AvatarFallback>$</AvatarFallback>
     </Avatar>
   </Link>
 ) : (
