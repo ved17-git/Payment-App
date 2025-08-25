@@ -12,7 +12,6 @@ export const updateUser=async (previousState:unknown, formData:FormData)=>{
     const cookieStore=await cookies()
     const token =cookieStore.get('token')?.value
   
-    console.log(firstName,lastName,email);
     
 
     try {

@@ -41,7 +41,6 @@ type props={
 
 function UpdateForm({data}:props) {
       
-console.log(data);
 
   
 const [error, action, isLoading] = useActionState(updateUser, undefined)

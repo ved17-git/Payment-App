@@ -25,7 +25,6 @@ export const signUp = async (req: Request, res: Response): Promise<void> => {
     }
 
     const hashedPassword=await bcrypt.hash(password,10)
-    console.log(hashedPassword);
     
 
     const newUser = await User.create({

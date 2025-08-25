@@ -58,7 +58,6 @@ function DashboardPage({ data,balance }:props) {
   },[status])
 
 
-console.log(balance);
 
 
   return (

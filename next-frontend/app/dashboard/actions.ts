@@ -23,7 +23,6 @@ export const sendMoney=async(previousState:unknown, formData:FormData)=>{
   console.log(amount ,email);
   
  const data=await res.json()
- console.log(data);
  
   if(!res.ok){
     return{

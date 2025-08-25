@@ -9,7 +9,6 @@ const firstName=formData.get("firstName")
   const email=formData.get("email")
   const password=formData.get("password")
 
-  console.log(firstName, lastName, email, password);
   
     const res= await fetch ("http://localhost:8000/signUp",{
     method:"POST",
