@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
+import { Deployed_URL } from "../config"
 
 export const updateUser=async (previousState:unknown, formData:FormData)=>{
 
@@ -16,7 +17,7 @@ export const updateUser=async (previousState:unknown, formData:FormData)=>{
 
     try {
 
-      const res=await fetch("http://localhost:8000/updateUser",{
+      const res=await fetch(`${Deployed_URL}/updateUser`,{
         method:"PUT",
         headers:{
           "Authorization":`Bearer ${token}`,
@@ -57,7 +58,7 @@ export const handleLogout=async ()=>{
       const cookieStore= await cookies()
   const token =cookieStore.get('token')?.value
 
-    const res=await fetch("http://localhost:8000/logout",{
+    const res=await fetch(`${Deployed_URL}/logout`,{
     method:"POST",
     headers: {
     "Content-Type": "application/json",

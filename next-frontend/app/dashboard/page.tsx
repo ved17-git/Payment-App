@@ -1,6 +1,7 @@
 "use server"
 import { cookies } from "next/headers";
 import DashboardPage from "./DashboardPage";
+import { Deployed_URL } from "../config";
 
 interface allUsers {
   firstName: string;
@@ -20,7 +21,7 @@ async function Page() {
   const token = cookieStore.get("token")?.value;
 
 
-  const res = await fetch("http://localhost:8000/getUsers", {
+  const res = await fetch(`${Deployed_URL}/getUsers`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -37,7 +38,7 @@ async function Page() {
   const users:allUsers[] = data.users; 
 
 
-  const res2=await fetch("http://localhost:8000/currentBalance",{
+  const res2=await fetch(`${Deployed_URL}/currentBalance`,{
     method:"GET",
     headers:{
       Authorization:`Bearer ${token}`,

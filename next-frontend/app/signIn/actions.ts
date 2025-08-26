@@ -1,13 +1,14 @@
 "use server"
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
+import { Deployed_URL } from "../config"
 
 export const handleSignIn = async (previousState:unknown, formData: FormData) => {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
   
 
-    const res = await fetch("http://localhost:8000/login", {
+    const res = await fetch(`${Deployed_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import UpdateForm from "./UpdateForm";
 import { Suspense } from 'react'
+import { Deployed_URL } from "../config";
 
 type userType={
   _id:string,
@@ -19,7 +20,7 @@ async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  const res = await fetch("http://localhost:8000/CurrentUser", {
+  const res = await fetch(`${Deployed_URL}/CurrentUser`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

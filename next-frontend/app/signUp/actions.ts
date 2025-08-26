@@ -1,6 +1,7 @@
 "use server"
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
+import { Deployed_URL } from "../config"
 
 export const handleSignUp=async(previousState:unknown, formData:FormData):Promise<string>=>{
 
@@ -10,7 +11,7 @@ const firstName=formData.get("firstName")
   const password=formData.get("password")
 
   
-    const res= await fetch ("http://localhost:8000/signUp",{
+    const res= await fetch (`${Deployed_URL}/signUp`,{
     method:"POST",
     headers: {
         "Content-Type": "application/json",

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { cookies } from "next/headers"
+import { Deployed_URL } from "../config"
 
 export const sendMoney=async(previousState:unknown, formData:FormData)=>{
 
@@ -12,7 +13,7 @@ export const sendMoney=async(previousState:unknown, formData:FormData)=>{
   const email=formData.get('email')?.toString()
   const amount= amountStr ? parseInt(amountStr) : null
 
-  const res=await fetch("http://localhost:8000/transfer",{
+  const res=await fetch(`${Deployed_URL}/transfer`,{
     method:"POST",
     headers:{
       "Authorization":`Bearer ${token}`,
