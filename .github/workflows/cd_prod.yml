@@ -1,0 +1,14 @@
+name: deploy on ec2
+
+on:
+ push:
+  branchs:
+    ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -name: deploy
+      -run: |
+        
