@@ -1,9 +1,8 @@
 name: deploy on ec2
 
 on:
- push:
-  branchs:
-    ["main"]
+  push:
+    branchs: ["main"]
 
 jobs:
   build:
