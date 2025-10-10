@@ -6,13 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -run: |
-         echo "${{PAYMENT_BACKEND_SHH}}" &> ~/shh_key
-         echo ssh -i ~/shh_key root@13.201.91.187
-         cd Payment-App && git pull
-         cd backend
-         npm install
-         npm run build
-         pm2 restart ./dist/index.js
+       - run: |
+          echo "${{PAYMENT_BACKEND_SHH}}" &> ~/shh_key
+          echo ssh -i ~/shh_key root@13.201.91.187
+          cd Payment-App && git pull
+          cd backend
+          npm install
+          npm run build
+          pm2 restart ./dist/index.js
         
         
