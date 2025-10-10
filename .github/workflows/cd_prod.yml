@@ -8,6 +8,7 @@ jobs:
     steps:
        - run: |
           echo "${{secrets.PAYMENT_BACKEND_SHH}}" &> ~/shh_key
-          echo ~/shh_key
+          echo ssh -i ~/shh_key root@13.201.91.187
+
         
         
