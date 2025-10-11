@@ -8,6 +8,6 @@ jobs:
     steps:
        - run: |
           echo "${{secrets.PAYMENT_BACKEND_SHH}}" &> ~/shh_key
-          ls shh_key
+          ls ~/shh_key
         
         
