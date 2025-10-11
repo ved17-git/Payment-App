@@ -8,11 +8,6 @@ jobs:
     steps:
        - run: |
           echo "${{secrets.PAYMENT_BACKEND_SHH}}" &> ~/shh_key
-          ssh -i ~/shh_key ubuntu@ec2-13-201-91-187.ap-south-1.compute.amazonaws.com
-          cd Payment-App && git pull
-          cd backend
-          npm install
-          npm run build
-          pm2 restart ./dist/index.js
+          ls shh_key
         
         
