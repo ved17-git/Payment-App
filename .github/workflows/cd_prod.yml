@@ -23,6 +23,7 @@ jobs:
           git pull origin main
           npm install
           npm run build
+          source ~/.bashrc
           pm2 restart ./dist/index.js
       
   
