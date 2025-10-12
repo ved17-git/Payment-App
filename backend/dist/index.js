@@ -36,6 +36,11 @@ const dbConnect = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 dbConnect();
+app.get('/', (req, res) => {
+    res.json({
+        msg: "testing / route using cicd"
+    });
+});
 app.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 });
