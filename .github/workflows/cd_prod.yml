@@ -15,13 +15,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: shh into the machine
-        uses: appleboy/ssh-action@v1
-        with:
-          host: 13.201.91.187
-          username: ubuntu
-          password: ${{ secrets.PAYMENT_BACKEND_SHH }}
-          port: 22
-          script: whoami
+        run: |
+          echo "${{ secrets.PAYMENT_BACKEND_SHH}}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@13.201.91.187 "whoami && uptime"
+          ls
+
 
 
         
