@@ -22,9 +22,10 @@ jobs:
       
       - name: run the code
         run: |
+          git pull origin main
           cd backend
           npm install
-          
+
           
 
 
