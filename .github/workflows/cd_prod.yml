@@ -21,6 +21,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@13.201.91.187 "
           cd Payment-App
           cd backend
+          git reset --hard
+          git clean -fd
           source ~/.bashrc
           git pull origin main
           npm run build
