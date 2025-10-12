@@ -23,7 +23,8 @@ jobs:
       - name: run the code
         run: |
           cd backend
-          ls
+          npm install
+          
           
 
 
