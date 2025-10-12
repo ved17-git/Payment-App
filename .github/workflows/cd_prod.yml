@@ -1,19 +1,28 @@
-name: deploy on ec2
+name: Deploy to Production 
+
 on:
-  push:
-    branches: [ main ]
+ push:
+  branches: ["main"]
+
 jobs:
-  build:
+  build: 
+    name: deploy on ec2
     runs-on: ubuntu-latest
+    
+
     steps:
-       - run: |
-          echo "${{secrets.PAYMENT_BACKEND_SHH}}" &> ~/shh_key
-          echo "${{secrets.KNOW_HOSTS_SSH}}" &> ~/ssh_key
-          ssh -i ~/shh_key ubuntu@ec2-13-201-91-187.ap-south-1.compute.amazonaws.com
-          cd Payment-App && git pull
-          cd backend
-          npm install
-          npm run build
-          pm2 restart ./dist/index.js
+      - name: get the code
+      - uses: actions/checkout@v2
+
+      - name: shh into the machine
+      - uses: appleboy/ssh-action@v1
+        with:
+          host: 13.201.91.187
+          username: ubuntu
+          password: ${{ secrets.PAYMENT_BACKEND_SHH }}
+          port: 22
+          script: whoami
+
+
         
         
