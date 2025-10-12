@@ -19,7 +19,8 @@ jobs:
           echo "${{ secrets.PAYMENT_BACKEND_SHH}}" > private_key.pem
           chmod 600 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@13.201.91.187 "whoami && uptime"
-          ls
+          git pull origin main
+          cat backend/package.json
       
   
 
