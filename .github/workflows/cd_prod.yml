@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: get the code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: shh into the machine
-      - uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@v1
         with:
           host: 13.201.91.187
           username: ubuntu
