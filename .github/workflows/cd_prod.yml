@@ -20,10 +20,10 @@ jobs:
           chmod 600 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem ubuntu@13.201.91.187 "whoami && uptime"
           cd backend
+          source ~/.bashrc
           git pull origin main
           npm install
           npm run build
-          source ~/.bashrc
           pm2 restart ./dist/index.js
       
   
