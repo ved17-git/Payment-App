@@ -30,7 +30,7 @@ try {
 dbConnect()
 app.get('/',(req,res)=>{
     res.json({
-        msg:"testing / route using cicd"
+        msg:"testing / route using cicd health check"
     })
 })
 
