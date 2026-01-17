@@ -11,7 +11,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  // If token exists and user tries to access public route (e.g., /signIn), redirect to /dashboard
+  // if token exists and user tries to access public route (e.g., /signIn), redirect to /dashboard
   if (token && publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL('/dashboard', req.url));
   }
