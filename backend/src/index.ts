@@ -15,19 +15,21 @@ app.use('/', router)
 
 const PORT=process.env.PORT
 
-const dbConnect=async()=>{
-const connected=await mongoose.connect(process.env.MONGODB_URL as string)
-try {
-    if(connected){
-    console.log("connected to db")
-}
-} catch (error) {
-    console.log("error in db connection");
-    console.log(error);
-}
-}
+    const dbConnect=async()=>{
+            const connected=await mongoose.connect(process.env.MONGODB_URL as string)
+            try {
+                if(connected){
+                console.log("connected to db")
+            }
+            } catch (error) {
+                console.log("error in db connection");
+                console.log(error);
+            }
+    }
 
 dbConnect()
+
+
 app.get('/',(req,res)=>{
     res.json({
         msg:"testing / route using cicd health check"
