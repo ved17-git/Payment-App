@@ -5,10 +5,6 @@ import { UpdatedRequest } from "../middleware";
 import { Account } from "../models/balanceSchema";
 import bcrypt from 'bcrypt'
 
-
-
-
-
 export const signUp = async (req: Request, res: Response): Promise<void> => {
   const { firstName, lastName, email, password } = req.body;
 
